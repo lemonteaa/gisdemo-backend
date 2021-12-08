@@ -1,3 +1,5 @@
+/* Code from https://blog.patricktriest.com/game-of-thrones-map-node-postgres-redis/ */
+
 require('dotenv').config()
 
 const Koa = require('koa')
