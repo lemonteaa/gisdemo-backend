@@ -18,21 +18,8 @@ router.get('/time', async ctx => {
 })
 
 router.put('/shop', koaBody(), async ctx => {
-    console.log(ctx.request.body.foo);
-    const result = await database.addShop({
-        feat: {
-            cc_acc: true,
-            access: false,
-            cs: false,
-            allhr: true,
-            takeout: true
-        },
-        name: "Hello window",
-        addr: "Middle of nowhere",
-        reg: 1,
-        price: [50, 100],
-        loc: [-71.104, 42.315]
-    })
+    //console.log(ctx.request.body.foo);
+    const result = await database.addShop(ctx.request.body)
     ctx.body = result;
 })
 
