@@ -4,6 +4,7 @@ require('dotenv').config()
 
 const Koa = require('koa')
 const cors = require('kcors')
+const koaBody = require('koa-body')
 
 const api = require('./api')
 
