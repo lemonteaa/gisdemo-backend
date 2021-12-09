@@ -3,7 +3,9 @@ const connectionString = process.env.DATABASE_URL
 
 // Initialize postgres client
 postgres.defaults.ssl = false;
-const client = new postgres.Client({ connectionString })
+const client = new postgres.Client({
+    ssl: false
+})
 
 // Connect to the DB
 client.connect().then(() => {
