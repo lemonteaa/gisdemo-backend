@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gis-backend
+spec:
+  selector:
+    matchLabels:
+      app: gis-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gis-backend
+    spec:
+      containers:
+        - image: registry.cloud.okteto.net/gislab-lemonteaa/gis-demo-backend:alpha
+          name: gis-backend
+          env:
+            - name: PORT
+              value: "3000"
+            - name: PGUSER
+              value: postgres
+            - name: PGHOST
+              value: my-pg-postgresql
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: my-pg-postgresql
+                  key: postgresql-password
+            - name: PGDATABASE
+              value: postgres
+            - name: PGPORT
+              value: "5432"
+          ports:
+            - containerPort: 3000
