@@ -38,7 +38,7 @@ module.exports = {
                 shop_price_higher_bound,
                 shop_feature,
                 shop_location) 
-                SELECT $6, $7, $8, $9, $10, $11, feature_id, ST_POINT($12, $13) FROM rows RETURNING shop_id;
+                SELECT $6, $7, $8, $9, $10, $11, feature_id, ST_SetSRID(ST_POINT($12, $13), 4326) FROM rows RETURNING shop_id;
              `,
             values: [shop.feat.cc_acc, shop.feat.access, shop.feat.cs, shop.feat.allhr, shop.feat.takeout,
                 shop.name, shop.addr, shop.reg, shop.img, shop.price[0], shop.price[1], shop.loc[1], shop.loc[0]]
