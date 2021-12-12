@@ -12,4 +12,4 @@ select json_build_object('type','FeatureCollection',
                             'geometry', ST_AsGeoJSON(shop_location)::jsonb, 
                             'properties', to_jsonb(row) - 'shop_id' - 'shop_location'))) 
     myjson from (select * from shops where 
-    ST_Intersect(shop_location, ST_MakeEnvelope(SW_longitude, SW_latitude, NE_longitude, NE_latitude, 4326 ))) as row;
+    ST_Intersects(shop_location, ST_MakeEnvelope(SW_longitude, SW_latitude, NE_longitude, NE_latitude, 4326 ))) as row;

@@ -45,5 +45,21 @@ module.exports = {
         }
         const result = await client.query(query)
         return result.rows[0]
+    },
+
+    queryShopGeoJSON: async (box) => {
+        const query = {
+            text: `select json_build_object('type','FeatureCollection', 
+                                            'features', json_agg(jsonb_build_object(
+                                                'type','Feature', 
+                                                'geometry', ST_AsGeoJSON(shop_location)::jsonb, 
+                                                'properties', to_jsonb(row) - 'shop_id' - 'shop_location'))) 
+                    myjson from (select * from shops where 
+                            ST_Intersects(shop_location, 
+                                        ST_MakeEnvelope($1, $2, $3, $4, 4326 ))) as row;`,
+            values: [box.sw[1], box.sw[0], box.ne[1], box.ne[0]]
+        }
+        const result = await client.query(query)
+        return result.rows[0].myjson
     }
 }

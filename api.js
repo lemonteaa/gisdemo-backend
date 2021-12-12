@@ -23,4 +23,10 @@ router.put('/shop', koaBody(), async ctx => {
     ctx.body = result;
 })
 
+router.get('/shop', koaBody({parsedMethods: ['GET']}), async ctx => {
+    console.log(ctx.request.body);
+    const result = await database.queryShopGeoJSON(ctx.request.body)
+    ctx.body = result;
+})
+
 module.exports = router
